@@ -1,10 +1,9 @@
 import React from 'react'
-import Link from 'react-router-dom'
+import { Route } from 'react-router';
 import './App.css'
-import { Router, Route, Switch } from 'react-router'
 import SearchBooks from './SearchBooks.js'
-import ListBooks from './ListBooks.js'
 import * as BooksAPI from './BooksAPI.js'
+import Bookshelf from './Bookshelf.js'
 
 class BooksApp extends React.Component {
 
@@ -14,16 +13,39 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      console.debug('books', books);
       this.setState({ books })
     })
+  }
+
+  changeShelf = (book) => {
+    BooksAPI.update(book, book.shelf).then((b) => {
+
+      console.debug('changeShelf updatedBook', book.shelf, b);
+
+      BooksAPI.getAll().then((books) => {
+        this.setState({ books })
+      });
+
+    });
   }
 
   render() {
     return (
       <div>
         <Route exact path='/' render={() => (
-          <ListBooks books={this.state.books} />
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <div className="list-books-content">
+              <Bookshelf shelfTitle="Currently Reading" changeShelf={this.changeShelf} shelfBooks={this.state.books.filter((b) => (b.shelf === 'currentlyReading'))} />
+              <Bookshelf shelfTitle="Have Read" changeShelf={this.changeShelf} shelfBooks={this.state.books.filter((b) => (b.shelf === 'read'))} />
+              <Bookshelf shelfTitle="Want to Read" changeShelf={this.changeShelf} shelfBooks={this.state.books.filter((b) => (b.shelf === 'wantToRead'))} />
+            </div>
+            <div className="open-search">
+              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            </div>
+          </div>
         )} />
         <Route exact path='/search' render={() => (
           <SearchBooks />

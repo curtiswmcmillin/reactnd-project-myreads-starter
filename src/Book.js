@@ -3,10 +3,15 @@ import PropTypes from 'prop-types'
 
 class Book extends React.Component {
 
+    static propTypes = {
+        book: PropTypes.object.isRequired,
+        onSelectShelf: PropTypes.func.isRequired
+      }
+    
     handleSelect = (e) => {
-        console.debug(e)
-        //this.props.book.shelf = e.
-        //this.props.onShelfChange(book);
+        this.props.book.shelf = e.target.value;
+        //console.debug(this.props.book);
+        this.props.onSelectShelf(this.props.book);
     }
 
     render() {
@@ -35,4 +40,5 @@ class Book extends React.Component {
         )
     }
 }
+
 export default Book
