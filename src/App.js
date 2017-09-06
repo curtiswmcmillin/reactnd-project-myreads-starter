@@ -20,13 +20,9 @@ class BooksApp extends React.Component {
 
   changeShelf = (book) => {
     BooksAPI.update(book, book.shelf).then((b) => {
-
-      //console.debug('changeShelf updatedBook', book.shelf, b);
-
       BooksAPI.getAll().then((books) => {
         this.setState({ books })
       });
-
     });
   }
 
