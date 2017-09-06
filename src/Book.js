@@ -9,9 +9,11 @@ class Book extends React.Component {
       }
     
     handleSelect = (e) => {
-        this.props.book.shelf = e.target.value;
-        //console.debug(this.props.book);
-        this.props.onSelectShelf(this.props.book);
+        const book = {
+            id : this.props.book.id,
+            shelf: e.target.value
+        }
+        this.props.onSelectShelf(book);
     }
 
     render() {
