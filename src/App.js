@@ -27,6 +27,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const books = this.state.books;
     return (
       <div>
         <Route exact path='/' render={() => (
@@ -36,9 +37,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Bookshelf shelfTitle="Currently Reading" changeShelf={this.changeShelf} shelfBooks={this.state.books.filter((b) => (b.shelf === 'currentlyReading'))} />
-                <Bookshelf shelfTitle="Have Read" changeShelf={this.changeShelf} shelfBooks={this.state.books.filter((b) => (b.shelf === 'read'))} />
-                <Bookshelf shelfTitle="Want to Read" changeShelf={this.changeShelf} shelfBooks={this.state.books.filter((b) => (b.shelf === 'wantToRead'))} />
+                <Bookshelf shelfTitle="Currently Reading" changeShelf={this.changeShelf} shelfBooks={books.filter((b) => (b.shelf === 'currentlyReading'))} />
+                <Bookshelf shelfTitle="Want to Read" changeShelf={this.changeShelf} shelfBooks={books.filter((b) => (b.shelf === 'wantToRead'))} />
+                <Bookshelf shelfTitle="Have Read" changeShelf={this.changeShelf} shelfBooks={books.filter((b) => (b.shelf === 'read'))} />
               </div>
             </div>
             <div className="open-search">

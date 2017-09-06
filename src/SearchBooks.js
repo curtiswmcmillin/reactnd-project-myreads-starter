@@ -14,7 +14,6 @@ class SearchBooks extends React.Component {
     }
 
     changeShelf = (book) => {
-        //console.debug('changeShelf', book)
         this.props.addToShelf(book);
         this.setState((state) => ({
             searchResults: state.searchResults.filter((b) => b.id !== book.id)
