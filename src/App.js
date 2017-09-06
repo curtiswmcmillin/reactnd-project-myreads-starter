@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router';
+import { Link } from 'react-router-dom'
 import './App.css'
 import SearchBooks from './SearchBooks.js'
 import * as BooksAPI from './BooksAPI.js'
@@ -20,7 +21,7 @@ class BooksApp extends React.Component {
   changeShelf = (book) => {
     BooksAPI.update(book, book.shelf).then((b) => {
 
-      console.debug('changeShelf updatedBook', book.shelf, b);
+      //console.debug('changeShelf updatedBook', book.shelf, b);
 
       BooksAPI.getAll().then((books) => {
         this.setState({ books })
@@ -43,7 +44,7 @@ class BooksApp extends React.Component {
               <Bookshelf shelfTitle="Want to Read" changeShelf={this.changeShelf} shelfBooks={this.state.books.filter((b) => (b.shelf === 'wantToRead'))} />
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to='/search'>Add a book</Link>
             </div>
           </div>
         )} />
