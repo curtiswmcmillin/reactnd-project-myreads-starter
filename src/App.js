@@ -1,10 +1,9 @@
 import React from 'react'
 import { Route } from 'react-router';
-import { Link } from 'react-router-dom'
 import './App.css'
+import Main from './Main.js'
 import SearchBooks from './SearchBooks.js'
 import * as BooksAPI from './BooksAPI.js'
-import Bookshelf from './Bookshelf.js'
 
 class BooksApp extends React.Component {
 
@@ -31,21 +30,7 @@ class BooksApp extends React.Component {
     return (
       <div>
         <Route exact path='/' render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <Bookshelf shelfTitle="Currently Reading" changeShelf={this.changeShelf} shelfBooks={books.filter((b) => (b.shelf === 'currentlyReading'))} />
-                <Bookshelf shelfTitle="Want to Read" changeShelf={this.changeShelf} shelfBooks={books.filter((b) => (b.shelf === 'wantToRead'))} />
-                <Bookshelf shelfTitle="Have Read" changeShelf={this.changeShelf} shelfBooks={books.filter((b) => (b.shelf === 'read'))} />
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to='/search'>Add a book</Link>
-            </div>
-          </div>
+          <Main myBooks={books} addToShelf={this.changeShelf} />
         )} />
         <Route exact path='/search' render={() => (
           <SearchBooks myBooks={books} addToShelf={this.changeShelf} />

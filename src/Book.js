@@ -6,11 +6,11 @@ class Book extends React.Component {
     static propTypes = {
         book: PropTypes.object.isRequired,
         onSelectShelf: PropTypes.func.isRequired
-      }
-    
+    }
+
     handleSelect = (e) => {
         const book = {
-            id : this.props.book.id,
+            id: this.props.book.id,
             shelf: e.target.value
         }
         this.props.onSelectShelf(book);
@@ -18,9 +18,14 @@ class Book extends React.Component {
 
     render() {
         const book = this.props.book
-        if(!book.imageLinks.thumbnail) {
+
+        if (!book.imageLinks) {
+            book.imageLinks = { thumbnail: '' };
+        }
+        if (!book.imageLinks.thumbnail) {
             book.imageLinks.thumbnail = '';
         }
+
         return (
             <div className="book">
                 <div className="book-top">
