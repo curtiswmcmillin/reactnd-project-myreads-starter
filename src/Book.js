@@ -18,6 +18,9 @@ class Book extends React.Component {
 
     render() {
         const book = this.props.book
+        if(!book.imageLinks.thumbnail) {
+            book.imageLinks.thumbnail = '';
+        }
         return (
             <div className="book">
                 <div className="book-top">
