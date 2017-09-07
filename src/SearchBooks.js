@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 
 class SearchBooks extends React.Component {
     static propTypes = {
+        myBooks: PropTypes.array.isRequired,
         addToShelf: PropTypes.func.isRequired        
     }
 
@@ -22,9 +23,16 @@ class SearchBooks extends React.Component {
 
     search = (e) => {
         const q = e.target.value;
-        BooksAPI.search(q, 2).then((results) => {
-            results.forEach((book) => {
-                book.shelf = 'none'
+        BooksAPI.search(q, 20).then((results) => {            
+            results.forEach((foundBook) => {
+                let b = this.props.myBooks.find((btf) => {
+                    return btf.id === foundBook.id;
+                })
+                if(b) {
+                    foundBook.shelf = b.shelf;
+                } else {
+                    foundBook.shelf = 'none';                    
+                }
             })
             this.setState({ searchResults: results })
         })
